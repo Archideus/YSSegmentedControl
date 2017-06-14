@@ -67,13 +67,13 @@ class YSSegmentedControlItem: UIControl {
         
         let views: [String: Any] = ["label": label]
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label]|",
-            options: [],
-            metrics: nil,
-            views: views))
+                                                      options: [],
+                                                      metrics: nil,
+                                                      views: views))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label]|",
-            options: [],
-            metrics: nil,
-            views: views))
+                                                      options: [],
+                                                      metrics: nil,
+                                                      views: views))
     }
     
     // MARK: Events
@@ -90,13 +90,16 @@ class YSSegmentedControlItem: UIControl {
 
 // MARK: - Control
 
+@available(iOS 8.2, *)
 public protocol YSSegmentedControlDelegate: class {
     func segmentedControl(_ segmentedControl: YSSegmentedControl, willPressItemAt index: Int)
     func segmentedControl(_ segmentedControl: YSSegmentedControl, didPressItemAt index: Int)
 }
 
+@available(iOS 8.2, *)
 public typealias YSSegmentedControlAction = (_ segmentedControl: YSSegmentedControl, _ index: Int) -> Void
 
+@available(iOS 8.2, *)
 public class YSSegmentedControl: UIView {
     
     // MARK: Properties
@@ -218,16 +221,17 @@ public class YSSegmentedControl: UIView {
             height: appearance.selectorHeight)
     }
     
+    @available(iOS 8.2, *)
     private func defaultAppearance() {
         appearance = YSSegmentedControlAppearance(
             backgroundColor: .clear,
             selectedBackgroundColor: .clear,
-            textColor: .gray,
-            font: .systemFont(ofSize: 15),
-            selectedTextColor: .black,
-            selectedFont: .systemFont(ofSize: 15),
-            bottomLineColor: .black,
-            selectorColor: .black,
+            textColor: UIColor(red: 0.61, green: 0.64, blue: 0.67, alpha: 1.00),
+            font: .systemFont(ofSize: 15, weight: UIFontWeightRegular),
+            selectedTextColor: UIColor(red: 0.15, green: 0.71, blue: 0.63, alpha: 1.00),
+            selectedFont: .systemFont(ofSize: 15, weight: UIFontWeightSemibold),
+            bottomLineColor: UIColor(red: 0.86, green: 0.86, blue: 0.86, alpha: 1.00),
+            selectorColor: UIColor(red: 0.15, green: 0.71, blue: 0.63, alpha: 1.00),
             bottomLineHeight: 0.5,
             selectorHeight: 2,
             labelTopPadding: 0)
@@ -253,10 +257,10 @@ public class YSSegmentedControl: UIView {
     private func moveSelector(at index: Int, withAnimation animation: Bool) {
         let width = frame.size.width / CGFloat(items.count)
         let target = width * CGFloat(index)
-        UIView.animate(withDuration: animation ? 0.3 : 0,
+        UIView.animate(withDuration: animation ? 0.2 : 0,
                        delay: 0,
                        usingSpringWithDamping: 1,
-                       initialSpringVelocity: 0,
+                       initialSpringVelocity: 1,
                        options: [],
                        animations: {
                         [unowned self] in
